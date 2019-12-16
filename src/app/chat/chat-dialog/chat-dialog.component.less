@@ -1,20 +1,24 @@
 .message {
-    border-radius: 50px;
+    border-radius: 15px;
     margin: 0 15px 10px;
     padding: 15px 20px;
     position: relative;
-    font-weight: bold;
+    margin-top: 5px;
+    font-size: 13px;
 }
 .message.to {
-    background-color: #2095FE;
-    color: #fff;
+    background-color: #e1e9f9;
+    color: #363636;
     margin-left: 100px;
     text-align: right;
+    overflow-wrap: break-word;
+    border-bottom-right-radius: 3px;
 }
 .message.from {
     background-color: #E5E4E9;
     color: #363636;
     margin-right: 100px;
+    border-bottom-left-radius: 3px;
 
 }
 .message.to + .message.to,
@@ -24,28 +28,69 @@ margin-top: -10px;
 
 .chat {
     overflow-y: scroll;
-    overflow: hidden;
-    height: 280px;
+    margin-bottom: 5px;
+    height: 500px;
 }
 
 .modal-header {
     height: 30px;
     font: bold;
     font-size: 14px;
-    width: 300px;
+    width: 350px;
+    text-align: center;
+    background: url('../../../assets/images/modalheader.png');
 }
 
 .textArea {
     height: 40px;
     width: 250px;
+    margin-left: 20px;
+    resize: none;
+    margin-top: 0px;
 }
 .sendButton {
     margin-left: 10px;
-    height: 30px;
+    height: 40px;
+    background: url(../../../assets/images/send.png) no-repeat!important;
+    width: 40px;
 }
 
-.closeButton {
-border: none;
-background: none;
-margin-left: 300px;
+.closeButton, .minimizeButton, .sendButton {
+    border: none;
+    background: none;
+    float: right;
+    margin-right: 3px;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.modal-content {
+    padding: 5px;
+    color: #E5E4E9;
+}
+
+.msg.to .time {
+    color: #828282;
+    font-size: 10px;
+    white-space: nowrap;
+    margin-top: 7px;
+    margin-right: 15px;
+    float: right;
+}
+
+.msg.from .time{
+    color: #828282;
+    font-size: 10px;
+    white-space: nowrap;
+    margin-top: 7px;
+    margin-right: 3.5%;
+    margin-left: 15px;
+}
+
+.txtbtn {
+    float: right;
+    margin-right: 15px;
+    margin-top: -40px;
 }

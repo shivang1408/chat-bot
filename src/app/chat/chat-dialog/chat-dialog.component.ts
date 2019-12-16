@@ -13,6 +13,7 @@ export class ChatDialogComponent implements OnInit {
 
   messages: Observable<Message[]>;
   formValue: string;
+  time: any;
 
   constructor(public chat: ChatService, public dialog: MatDialog) { }
 
@@ -23,12 +24,19 @@ export class ChatDialogComponent implements OnInit {
   }
 
   sendMessage() {
+    if (this.formValue.length > 0 && this.formValue.trim()) {
+    this.time = new Date();
     this.chat.converse(this.formValue);
     this.formValue = '';
   }
+}
 
   close() {
     this.dialog.closeAll();
+  }
+
+  minimize() {
+    
   }
 
 }

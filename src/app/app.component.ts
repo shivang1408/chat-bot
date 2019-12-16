@@ -14,7 +14,7 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ChatDialogComponent, {
-      width: '350px', height: '400px', hasBackdrop: true, backdropClass: 'none'});
+      width: '350px', height: '600px', hasBackdrop: true, backdropClass: 'none'});
     }
 }
 
