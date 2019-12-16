@@ -14,6 +14,7 @@ import { ChatService } from './chat.service';
     ChatDialogComponent
   ],
   exports: [ ChatDialogComponent ], // <-- export here
-  providers: [ChatService]
+  providers: [ChatService],
+  entryComponents: [ChatDialogComponent]
 })
 export class ChatModule { }

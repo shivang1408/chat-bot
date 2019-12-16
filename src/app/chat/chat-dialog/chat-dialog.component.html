@@ -1,5 +1,8 @@
-<h1>Angular Bot</h1>
 
+<div class="modal-header">ChatBot
+  <button class="closeButton" (click)="close()">x</button>
+</div>
+<div class="chat" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 <ng-container *ngFor="let message of messages | async">
 
   <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
@@ -9,10 +12,8 @@
 
 </ng-container>
 
+</div>
 
-<label for="nameField">Your Message</label>
+<input class="textArea" [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text">
 
-
-<input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text">
-
-<button (click)="sendMessage()">Send</button>
+<button class="sendButton" (click)="sendMessage()">Send</button>
