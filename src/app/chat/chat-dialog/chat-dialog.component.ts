@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { ChatService, Message } from '../chat.service';
 import { Observable } from 'rxjs';
 import { scan } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class ChatDialogComponent implements OnInit {
   messages: Observable<Message[]>;
   formValue: string;
   time: any;
+  @ViewChild('message', {static: true}) message: ElementRef<any>;
 
   constructor(public chat: ChatService, public dialog: MatDialog) { }
 
@@ -21,12 +22,14 @@ export class ChatDialogComponent implements OnInit {
     // appends to array after each new message is added to feedSource
     this.messages = this.chat.conversation.asObservable()
     .pipe(scan((acc, val) => acc.concat(val)) );
+    this.time =  Date.now();
+    this.message.nativeElement.onfocus = true;
   }
 
   sendMessage() {
-    if (this.formValue.length > 0 && this.formValue.trim()) {
-    this.time = new Date();
-    this.chat.converse(this.formValue);
+    if (this.formValue.length > 0 && this.formValue.trim() !== '') {
+    this.time =  Date.now();
+    this.chat.converse(this.formValue, this.time);
     this.formValue = '';
   }
 }
@@ -36,7 +39,7 @@ export class ChatDialogComponent implements OnInit {
   }
 
   minimize() {
-    
+
   }
 
 }

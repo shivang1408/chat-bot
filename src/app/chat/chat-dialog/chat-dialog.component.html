@@ -1,28 +1,28 @@
-
 <div class="modal-header">
   <div class="modal-content">
-      <strong>ChatBot</strong>
-  <button class="closeButton" (click)="close()"><strong>x</strong></button>
-  <button class="minimizeButton" (click)="minimize()"><strong>-</strong></button>
-</div>
+    <strong>ChatBot</strong>
+    <button class="closeButton" (click)="close()"><strong>x</strong></button>
+    <button class="minimizeButton" (click)="minimize()"><strong>-</strong></button>
+  </div>
 </div>
 <div class="chat" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-<ng-container *ngFor="let message of messages | async">
-<div class="msg" [ngClass]="{ 'from': message.sentBy === 'bot',
+  <ng-container *ngFor="let message of messages | async">
+    <div class="msg" [ngClass]="{ 'from': message.sentBy === 'bot',
                             'to':   message.sentBy === 'user' }">
-  <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
+      <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
                                     'to':   message.sentBy === 'user' }">
-    {{ message.content }}
-  </div>
-  <div class="time">{{time | date: 'hh:mm'}}</div>
-</div>
-</ng-container>
+        {{ message.content }}
+      </div>
+      <div class="time">{{message.time | date: 'hh:mm a'}}</div>
+    </div>
+  </ng-container>
 
 </div>
 
 <div class="txtarea">
-<textarea class="textArea" [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text"></textarea>
+  <textarea placeholder="Please enter your query here" class="textArea" [(ngModel)]="formValue"
+    (keyup.enter)="sendMessage()" type="text" #message autofocus></textarea>
 </div>
 <div class="txtbtn">
-<button class="sendButton" (click)="sendMessage()"></button>
+  <button class="sendButton" (click)="sendMessage()"></button>
 </div>
