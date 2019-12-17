@@ -17,14 +17,18 @@ export class ChatService {
   readonly client = new ApiAiClient({ accessToken: this.token });
 
   conversation = new BehaviorSubject<Message[]>([]);
-  currentTime = new BehaviorSubject<Message[]>([]);
+
+  welcomeText = this.client.textRequest('Welcome');
+
 
   constructor() {}
 
   // Sends and receives messages via DialogFlow
   converse(msg: string, time: any) {
+    if (msg !== 'Welcome') {
     const userMessage = new Message(msg, 'user', time);
     this.update(userMessage);
+    }
 
     return this.client.textRequest(msg)
                .then(res => {
@@ -34,10 +38,8 @@ export class ChatService {
                });
   }
 
-
-
   // Adds message to source
-  update(msg: Message) {
+    update(msg: Message) {
     this.conversation.next([msg]);
   }
 

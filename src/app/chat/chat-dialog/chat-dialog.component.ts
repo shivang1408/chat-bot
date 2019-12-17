@@ -24,6 +24,7 @@ export class ChatDialogComponent implements OnInit {
     .pipe(scan((acc, val) => acc.concat(val)) );
     this.time =  Date.now();
     this.message.nativeElement.onfocus = true;
+    this.chat.converse('Welcome', this.time);
   }
 
   sendMessage() {
