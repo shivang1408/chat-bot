@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { ChatService, Message } from '../chat.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { scan } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
@@ -16,15 +16,20 @@ export class ChatDialogComponent implements OnInit {
   time: any;
   @ViewChild('message', {static: true}) message: ElementRef<any>;
 
+
   constructor(public chat: ChatService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    // appends to array after each new message is added to feedSource
-    this.messages = this.chat.conversation.asObservable()
-    .pipe(scan((acc, val) => acc.concat(val)) );
     this.time =  Date.now();
     this.message.nativeElement.onfocus = true;
-    this.chat.converse('Welcome', this.time);
+    if (!this.chat.isMinimize) {
+      this.messages = this.chat.conversation.asObservable()
+      .pipe(scan((acc, val) => acc.concat(val)) );
+      this.chat.converse('Welcome', this.time);
+    } else {
+      this.messages = of(this.chat.chatHistory);
+    }
+
   }
 
   sendMessage() {
@@ -36,11 +41,17 @@ export class ChatDialogComponent implements OnInit {
 }
 
   close() {
+    this.chat.isMinimize = false;
+    this.messages = null;
+    this.chat.chatHistory = [];
+    this.chat.isClosed = true;
+    this.chat.conversation.value.splice(0, this.chat.conversation.value.length);
     this.dialog.closeAll();
   }
 
   minimize() {
-
+    this.chat.isMinimize = true;
+    this.dialog.closeAll();
   }
 
 }
